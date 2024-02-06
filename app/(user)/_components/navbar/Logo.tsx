@@ -8,7 +8,7 @@ const Logo = () => {
           <Image src="/logo8.png" alt="Logo" height={32} width={32} />
         </div>
         <div className="hidden lg:block">
-          <p className="font-bold">Streamify</p>
+          <p className="font-bold text-emerald-400 text-xl">Streamify</p>
           <p className="text-muted-foreground text-xs">Play & Stream</p>
         </div>
       </div>

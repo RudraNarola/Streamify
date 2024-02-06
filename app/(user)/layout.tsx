@@ -1,5 +1,5 @@
-import Navbar from "./_components/Navbar";
-import Sidebar from "./_components/Sidebar";
+import Navbar from "./_components/navbar/Navbar";
+import Sidebar from "./_components/sidebar/Sidebar";
 
 export default function UserLayout({
   children,
@@ -9,7 +9,10 @@ export default function UserLayout({
   return (
     <>
       <Navbar />
-      <div className="mt-20">{children}</div>
+      <main className="h-full flex flex-row mt-20">
+        <Sidebar />
+        {children}
+      </main>
     </>
   );
 }
