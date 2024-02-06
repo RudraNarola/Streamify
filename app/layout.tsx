@@ -25,6 +25,7 @@ export default function RootLayout({
             forcedTheme="dark"
             storageKey="streamify-theme"
           >
+            
             {children}
           </ThemeProvider>
         </body>
