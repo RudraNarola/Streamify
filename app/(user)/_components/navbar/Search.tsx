@@ -32,12 +32,13 @@ const Search = () => {
           placeholder="Search"
           value={search}
           onChange={handleChange}
-          className="focus-visible:ring-1 focus:ring-blue-400 focus:outline-none border border-gray-600 rounded-md py-2 px-4 w-full"
+          className="focus-visible:ring-1 focus:ring-blue-400 focus:outline-none border border-gray-600 rounded-md py-2 px-8 w-full"
         />
         {search && (
           <button
             onClick={handleClear}
-            className="absolute inset-y-0 right-0 flex items-center px-2 py-2  text-white-100 hover:text-gray-300  text-md font-bold "
+            className="absolute inset-y-0 right-1 flex items-center pr-2 py-2  text-white-100 hover:text-gray-300  text-md font-bold "
+            
           >
             X
           </button>
