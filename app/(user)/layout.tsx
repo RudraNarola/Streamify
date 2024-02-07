@@ -13,6 +13,7 @@ export default function UserLayout({
         <Sidebar />
         {children}
       </main>
+      {/* <Footer /> */}
     </>
   );
 }
