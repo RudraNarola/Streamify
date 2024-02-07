@@ -15,16 +15,19 @@ const Header = () => {
     Collapse();
   }
 
-  console.log(collapse);
-
   return collapse === true ? (
     <>
-      <Button variant="ghost" size={"sm"} onClick={handleExpansion}>
+      <Button
+        variant="ghost"
+        size={"sm"}
+        onClick={handleExpansion}
+        className="pl-2 flex justify-center items-center"
+      >
         <ArrowRightToLine />
       </Button>
     </>
   ) : (
-    <div className="flex items-center justify-between mb-2">
+    <div className="flex max-sm:hidden items-center justify-between mb-2">
       <h4 className="font-semibold text-xl">For You</h4>
       <Button variant="ghost" size={"sm"} onClick={handleCollapse}>
         <ArrowLeftToLine />
