@@ -20,8 +20,6 @@ export const getUser = async () => {
     throw new Error("User no found (Database)");
   }
 
-  console.log(user);
-
   return user;
 };
 
