@@ -1,6 +1,6 @@
 "use client";
 import { User } from "@prisma/client";
-import UserCard from "./UserCard";
+import UserCard, { UserCardSkeleton, UserItemSkeleton } from "./UserCard";
 import { useCollapse } from "@/store/useCollapse";
 import { cn } from "@/lib/utils";
 interface Props {
@@ -33,3 +33,19 @@ const RecommendChannel = ({ data }: Props) => {
 };
 
 export default RecommendChannel;
+
+
+export const RecommendedSkeleton = ()=>{
+  return(
+    <ul className="px-2">
+      {
+        [...Array(5)].map((_,i)=>(
+          <UserItemSkeleton key={i}/>
+        ))
+
+
+      }
+    </ul>
+
+  )
+}

@@ -1,5 +1,6 @@
+import { Suspense } from "react";
 import Navbar from "./_components/navbar/Navbar";
-import Sidebar from "./_components/sidebar/Sidebar";
+import Sidebar, { SidebarSkeleton } from "./_components/sidebar/Sidebar";
 
 export default function UserLayout({
   children,
@@ -10,8 +11,11 @@ export default function UserLayout({
     <>
       <Navbar />
       <main className="h-full flex flex-row mt-20">
+        <Suspense fallback={<SidebarSkeleton />}>
+
         <Sidebar />
-        {children}
+        </Suspense>
+        {children}  
       </main>
       {/* <Footer /> */}
     </>

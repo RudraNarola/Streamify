@@ -31,6 +31,7 @@ export const getFollowed = async () => {
 };
 
 export const getRecommended = async () => {
+  await new Promise((resolve) => setTimeout(resolve, 3000));
   const result = await db.user.findMany();
   return result;
 };
