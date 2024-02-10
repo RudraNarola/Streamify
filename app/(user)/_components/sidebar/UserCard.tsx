@@ -17,7 +17,7 @@ const UserCard = ({ imageUrl, username }: Props) => {
     <Button
       asChild
       className={cn(
-        "w-full h-12  px-1 ",
+        "w-full h-12 px-1 py-4",
         collapse === true ? "justify-center" : "justify-start",
         isActive && "bg-accent"
       )}

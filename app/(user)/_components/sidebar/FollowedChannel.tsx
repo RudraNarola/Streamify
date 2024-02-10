@@ -2,8 +2,12 @@
 import { User } from "@prisma/client";
 import UserCard from "./UserCard";
 import { useCollapse } from "@/store/useCollapse";
+import { useEffect } from "react";
+import { getFollowedUser } from "@/lib/services/follow.services";
+
+// TODO: User may not be following anyone, so we need to handle that case
 interface Props {
-  data: User[];
+  data: User[] | null;
 }
 
 const FollowedChannel = ({ data }: Props) => {
@@ -17,7 +21,7 @@ const FollowedChannel = ({ data }: Props) => {
         </div>
       )}
       <div className="w-full flex gap-y-1 flex-col">
-        {data.map((user) => {
+        {data?.map((user) => {
           return (
             <UserCard
               key={user.id}

@@ -1,10 +1,8 @@
 "use client";
 
 import { Button } from "@/components/ui/button";
-import { Input } from "@/components/ui/input";
 import { SearchIcon } from "lucide-react";
 import React from "react";
-import { useState } from "react";
 
 const Search = () => {
   function handleSubmit() {}
@@ -24,7 +22,7 @@ const Search = () => {
   return (
     <form
       onSubmit={handleSubmit}
-      className="relative w-full lg:w-[500px] flex items-center gap-1 px-4"
+      className="relative w-full lg:w-[500px] flex items-center gap-1 lg:px-4"
     >
       <div className="relative w-full">
         <input
@@ -38,7 +36,6 @@ const Search = () => {
           <button
             onClick={handleClear}
             className="absolute inset-y-0 right-1 flex items-center pr-2 py-2  text-white-100 hover:text-gray-300  text-md font-bold "
-            
           >
             X
           </button>
