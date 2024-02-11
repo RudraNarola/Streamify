@@ -6,7 +6,7 @@ const Wrapper = ({ children }: { children: React.ReactNode }) => {
   const { collapse, Expand, Collapse } = useCollapse();
 
   return (
-    <div
+    <aside
       className={cn(
         "w-[60px] h-full bg-[#1b1d24] p-2",
         collapse === false ? "lg:w-52" : "",
@@ -14,7 +14,7 @@ const Wrapper = ({ children }: { children: React.ReactNode }) => {
       )}
     >
       {children}
-    </div>
+    </aside>
   );
 };
 

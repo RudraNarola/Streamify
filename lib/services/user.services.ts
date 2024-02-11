@@ -3,6 +3,7 @@ import { currentUser } from "@clerk/nextjs";
 import { db } from "../database";
 
 export const getUser = async () => {
+ 
   const clerkUser = await currentUser();
 
   if (!clerkUser) {
@@ -39,11 +40,13 @@ export const getUserByUsername = async (username: string) => {
 };
 
 export const getFollowed = async () => {
+  await new Promise((resolve) => setTimeout(resolve, 2000));
   const result = await db.user.findMany();
   return result;
 };
 
 export const getRecommended = async () => {
+  await new Promise((resolve) => setTimeout(resolve, 2000));
   const result = await db.user.findMany();
   return result;
 };
