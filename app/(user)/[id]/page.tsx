@@ -1,48 +1,24 @@
-"use client";
-import { Button } from "@/components/ui/button";
-import {
-  followUser,
-  isFollowing,
-  unFollowUser,
-} from "@/lib/services/follow.services";
-import React, { useEffect, useState } from "react";
+import { isFollowing } from "@/lib/services/follow.services";
+import ButtonAction from "./_components/ButtonAction";
+import { isBlocked } from "@/lib/services/block.services";
 
-const Page = ({ params }: { params: { id: string } }) => {
-  const [isFollowingUser, setIsFollowingUser] = useState(false);
-
-  const unfollowFunction = async () => {
-    const result = await unFollowUser(params.id);
-    setIsFollowingUser(false);
-  };
-
-  const followFunction = async () => {
-    const result = await followUser(params.id);
-    setIsFollowingUser(true);
-  };
-
-  const handleFollow = () => {
-    if (isFollowingUser) {
-      unfollowFunction();
-    } else {
-      followFunction();
-    }
-  };
-
-  useEffect(() => {
-    const followingFunction = async () => {
-      const result = await isFollowing(params.id);
-      setIsFollowingUser(!!result);
-    };
-    followingFunction();
-    console.log("isFollowingUser", isFollowingUser);
-  }, []);
+const Page = async ({ params }: { params: { id: string } }) => {
+  const isFollowingResult = await isFollowing(params.id);
+  const isBlockedResult = await isBlocked(params.id);
 
   return (
     <>
-      <div>User: {params.id}</div>
-      <Button onClick={handleFollow}>
-        {isFollowingUser ? "Unfollow" : "Follow"}
-      </Button>
+      <div className="flex flex-col gap-4 ml-10 mt-4">
+        <div>User: {params.id}</div>
+        <div>isFollowing: {isFollowingResult ? "true" : "false"}</div>
+        <div>isBlocked: {isBlockedResult ? "true" : "false"}</div>
+
+        <ButtonAction
+          isFollowing={!!isFollowingResult}
+          userId={params.id}
+          isBlocked={!!isBlockedResult}
+        />
+      </div>
     </>
   );
 };

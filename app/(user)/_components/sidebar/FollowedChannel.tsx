@@ -18,7 +18,7 @@ const FollowedChannel = ({ data }: Props) => {
   return (
     <div className="h-auto">
       {!collapse && (
-        <div className="text-sm font-semibold mb-2 max-lg:hidden">
+        <div className="text-sm text-muted-foreground mb-2 max-lg:hidden">
           FOLLOWED CHANNELS
         </div>
       )}
@@ -39,8 +39,6 @@ const FollowedChannel = ({ data }: Props) => {
 
 export default FollowedChannel;
 
-
-
 // export const RecommendedSkeleton = ()=>{
 //   return(
 //     <ul className="px-2">
@@ -48,7 +46,6 @@ export default FollowedChannel;
 //         [...Array(5)].map((_,i)=>(
 //           <UserItemSkeleton key={i}/>
 //         ))
-
 
 //       }
 //     </ul>
@@ -63,4 +60,4 @@ export const FollowedChannelSkeleton = () => {
       ))}
     </ul>
   );
-}
+};

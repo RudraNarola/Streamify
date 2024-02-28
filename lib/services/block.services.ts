@@ -1,7 +1,7 @@
 import { db } from "../database";
 import { getUser, getUserByUsername } from "./user.services";
 
-export async function isFollowing(name: string) {
+export async function isBlocked(name: string) {
   let user;
   try {
     user = await getUser();
@@ -23,20 +23,22 @@ export async function isFollowing(name: string) {
 
   if (user.id === otherUser.id) {
     console.error("User and other user are the same");
-    return true;
+    return false;
   }
 
-  const result = await db.follow.findFirst({
+  const result = await db.block.findUnique({
     where: {
-      followerId: user.id,
-      followingId: otherUser.id,
+      blockerId_blockedId: {
+        blockerId: user.id,
+        blockedId: otherUser.id,
+      },
     },
   });
 
   return !!result;
 }
 
-export async function followUser(name: string) {
+export async function blockUser(name: string) {
   let user;
   try {
     user = await getUser();
@@ -61,34 +63,36 @@ export async function followUser(name: string) {
     return null;
   }
 
-  const res = await db.follow.findFirst({
+  const res = await db.block.findUnique({
     where: {
-      followerId: user.id,
-      followingId: otherUser.id,
+      blockerId_blockedId: {
+        blockerId: user.id,
+        blockedId: otherUser.id,
+      },
     },
   });
 
   if (res) {
-    console.log("Already following");
+    console.log("Already blocked!!!");
     return null;
   }
 
-  const result = await db.follow.create({
+  const result = await db.block.create({
     data: {
-      followerId: user.id,
-      followingId: otherUser.id,
+      blockerId: user.id,
+      blockedId: otherUser.id,
     },
     include: {
-      following: true,
-      follower: true,
+      blocked: true,
+      blocker: true,
     },
   });
 
-  console.log("Followed successfully");
+  console.log("Blocked successfully");
   return result;
 }
 
-export async function unFollowUser(name: string) {
+export async function unBlockUser(name: string) {
   let user;
   try {
     user = await getUser();
@@ -113,63 +117,29 @@ export async function unFollowUser(name: string) {
     return null;
   }
 
-  const res = await db.follow.findFirst({
+  const res = await db.block.findUnique({
     where: {
-      followerId: user.id,
-      followingId: otherUser.id,
+      blockerId_blockedId: {
+        blockerId: user.id,
+        blockedId: otherUser.id,
+      },
     },
   });
 
   if (!res) {
-    console.log("Already Not following");
+    console.log("Already Not blocked");
     return null;
   }
 
-  const result = await db.follow.delete({
+  const result = await db.block.delete({
     where: {
-      followerId_followingId: {
-        followerId: user.id,
-        followingId: otherUser.id,
-      },
+      id: res.id,
     },
     include: {
-      following: true,
-      follower: true,
+      blocked: true,
     },
   });
 
-  console.log("Unfollowed successfully");
+  console.log("Unblock successfully");
   return result;
-}
-
-export async function getFollowedUser() {
-  let user;
-  try {
-    user = await getUser();
-  } catch (error) {
-    console.error("Current user is not found", error);
-  }
-
-  if (!user) {
-    console.error("User is not found");
-    return null;
-  }
-
-  const result = await db.follow.findMany({
-    where: {
-      followerId: user.id,
-      following: {
-        blocking: {
-          none: {
-            blockedId: user.id,
-          },
-        },
-      },
-    },
-    include: {
-      following: true,
-    },
-  });
-
-  return result.map((item) => item.following);
 }

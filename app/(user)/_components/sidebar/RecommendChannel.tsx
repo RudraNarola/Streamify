@@ -13,7 +13,7 @@ const RecommendChannel = ({ data }: Props) => {
   return (
     <div className={cn(collapse ? "mt-1" : "mt-1 lg:mt-6")}>
       {!collapse && (
-        <div className="text-sm font-semibold mb-2 max-lg:hidden">
+        <div className="text-sm text-muted-foreground mb-2 max-lg:hidden">
           RECOMMENDED CHANNELS
         </div>
       )}
@@ -34,18 +34,12 @@ const RecommendChannel = ({ data }: Props) => {
 
 export default RecommendChannel;
 
-
-export const RecommendedSkeleton = ()=>{
-  return(
+export const RecommendedSkeleton = () => {
+  return (
     <ul className="px-2">
-      {
-        [...Array(7)].map((_,i)=>(
-          <UserItemSkeleton key={i}/>
-        ))
-       
-
-      }
+      {[...Array(7)].map((_, i) => (
+        <UserItemSkeleton key={i} />
+      ))}
     </ul>
-
-  )
-}
+  );
+};
