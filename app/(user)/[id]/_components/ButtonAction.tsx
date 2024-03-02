@@ -3,12 +3,14 @@ import { onBlock, onUnblock } from "@/actions/block";
 import { onFollow, onUnfollow } from "@/actions/follow";
 import { Button } from "@/components/ui/button";
 import { useTransition } from "react";
-import { toast } from "sonner";
+// import { toast } from "sonner";
+import toast from 'react-hot-toast';
 
 const ButtonAction = ({
   isFollowing,
   isBlocked,
   userId,
+  
 }: {
   isFollowing: boolean;
   isBlocked: boolean;
@@ -37,6 +39,11 @@ const ButtonAction = ({
   const [isblockPending, startBlockTransition] = useTransition();
 
 
+  interface CustomToastProps {
+    message: string;
+  }
+
+
 
   const handleFollow = () => {
 
@@ -45,18 +52,38 @@ const ButtonAction = ({
       startFollowTransition(() => {
 
         unfollowFunction().then(() => {
-          toast.success("Unfollowed the user");
-        }).catch(() => {
-          toast.error("Failed to unfollow the user");
-        })
+          toast.promise(unfollowFunction(), {
+            loading:`Unfollowing...  ${userId}`,
+            success: `Unfollowed the user ${userId}`,
+            error: `Failed to unfollow the user ${userId}`,
+
+
+
+
+
+
+
+
+
+          },
+
+
+
+
+          );
+        }
+        );
       });
     } else {
       startFollowTransition(() => {
         followFunction().then(() => {
-          toast.success("Followed the user");
-        }).catch(() => {
-          toast.error("Failed to follow the user");
-        })
+          toast.promise(followFunction(), {
+            loading: `Following...  ${userId}`,
+            success: `Followed the user ${userId}`,
+            error: `Failed to follow the user ${userId}`,
+
+          });
+        });
       });
     }
 
@@ -68,17 +95,24 @@ const ButtonAction = ({
     if (isBlocked) {
       startBlockTransition(() => {
         unblockFunction().then(() => {
-          toast.success("Unblocked the user");
-        }).catch(() => {
-          toast.error("Failed to unblock the user");
-        });
+          toast.promise(unblockFunction(), {
+            
+            loading: `Unblocking...  ${userId}`,
+            success: `Unblocked the user ${userId}`,
+            error: `Failed to unblock the user ${userId}`,
+
+
+          });
+        })
       });
     } else {
       startBlockTransition(() => {
         blockFunction().then(() => {
-          toast.success("Blocked the user");
-        }).catch(() => {
-          toast.error("Failed to block the user");
+          toast.promise(blockFunction(), {
+            loading: `Blocking...  ${userId}`,
+            success: `Blocked the user ${userId}`,
+            error: `Failed to block the user ${userId}`,
+          });
         });
       });
     }
