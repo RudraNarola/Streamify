@@ -5,7 +5,7 @@ import { ThemeProvider } from "@/components/theme-provider";
 const inter = Inter({ subsets: ["latin"] });
 import "./globals.css";
 import { dark } from "@clerk/themes";
-import {Toaster} from "sonner";
+import { Toaster } from "sonner";
 
 export const metadata: Metadata = {
   title: "Streamify",
@@ -26,8 +26,8 @@ export default function RootLayout({
             forcedTheme="dark"
             storageKey="streamify-theme"
           >
-          <Toaster theme="light" position="bottom-center" />
-            
+            <Toaster theme="light" position="bottom-center" />
+
             {children}
           </ThemeProvider>
         </body>

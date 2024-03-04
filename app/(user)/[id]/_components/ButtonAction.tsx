@@ -14,9 +14,6 @@ const ButtonAction = ({
   isBlocked: boolean;
   userId: string;
 }) => {
-
-
-
   const unfollowFunction = async () => {
     const result = await onUnfollow(userId);
   };
@@ -36,60 +33,70 @@ const ButtonAction = ({
   const [isfollowPending, startFollowTransition] = useTransition();
   const [isblockPending, startBlockTransition] = useTransition();
 
-
-
   const handleFollow = () => {
-
-
     if (isFollowing) {
       startFollowTransition(() => {
-
-        unfollowFunction().then(() => {
-          toast.success("Unfollowed the user");
-        }).catch(() => {
-          toast.error("Failed to unfollow the user");
-        })
+        unfollowFunction()
+          .then(() => {
+            toast.success(`Successfully unfollowed the ${userId}`, {
+              style: {
+                fontWeight: "bold",
+                marginLeft: "10px",
+              },
+            });
+          })
+          .catch(() => {
+            toast.error("Failed to unfollow the user");
+          });
       });
     } else {
       startFollowTransition(() => {
-        followFunction().then(() => {
-          toast.success("Followed the user");
-        }).catch(() => {
-          toast.error("Failed to follow the user");
-        })
+        followFunction()
+          .then(() => {
+            toast.success(`Successfully followed the ${userId}`, {
+              style: {
+                fontSize: "2rem",
+              },
+            });
+          })
+          .catch(() => {
+            toast.error("Failed to follow the user");
+          });
       });
     }
-
   };
 
   const handleBlock = () => {
-
-
     if (isBlocked) {
       startBlockTransition(() => {
-        unblockFunction().then(() => {
-          toast.success("Unblocked the user");
-        }).catch(() => {
-          toast.error("Failed to unblock the user");
-        });
+        unblockFunction()
+          .then(() => {
+            toast.success("Unblocked the user");
+          })
+          .catch(() => {
+            toast.error("Failed to unblock the user");
+          });
       });
     } else {
       startBlockTransition(() => {
-        blockFunction().then(() => {
-          toast.success("Blocked the user");
-        }).catch(() => {
-          toast.error("Failed to block the user");
-        });
+        blockFunction()
+          .then(() => {
+            toast.success("Blocked the user");
+          })
+          .catch(() => {
+            toast.error("Failed to block the user");
+          });
       });
     }
-
   };
   return (
     <>
       <Button disabled={isfollowPending} onClick={handleFollow}>
         {isFollowing ? "Unfollow" : "Follow"}
       </Button>
-      <Button disabled={isblockPending} onClick={handleBlock}>{isBlocked ? "Unblock" : "Block"}</Button>
+      <Button disabled={isblockPending} onClick={handleBlock}>
+        {isBlocked ? "Unblock" : "Block"}
+      </Button>
     </>
   );
 };
