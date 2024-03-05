@@ -1,10 +1,18 @@
 import { isFollowing } from "@/lib/services/follow.services";
 import ButtonAction from "./_components/ButtonAction";
-import { isBlocked } from "@/lib/services/block.services";
+import { isBlocked, isBlockedByUser } from "@/lib/services/block.services";
+import { notFound } from "next/navigation";
 
 const Page = async ({ params }: { params: { id: string } }) => {
   const isFollowingResult = await isFollowing(params.id);
   const isBlockedResult = await isBlocked(params.id);
+
+  // checking if the params.id (the user whose profile we are seeing) has blocked us
+  const isBlockedByUserResult = await isBlockedByUser(params.id);
+
+  if (isBlockedByUserResult) {
+    return notFound();
+  }
 
   return (
     <>
