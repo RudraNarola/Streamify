@@ -3,7 +3,6 @@
 import { Button } from "@/components/ui/button";
 import { ArrowLeftToLine, ArrowRight, ArrowRightToLine } from "lucide-react";
 import { useCollapse } from "@/store/useCollapse";
-import { useEffect, useState } from "react";
 
 const Header = () => {
   const { collapse, Expand, Collapse } = useCollapse();

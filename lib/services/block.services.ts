@@ -38,6 +38,43 @@ export async function isBlocked(name: string) {
   return !!result;
 }
 
+export async function isBlockedByUser(name: string) {
+  let user;
+  try {
+    user = await getUser();
+  } catch (error) {
+    console.error("Current user is not found", error);
+  }
+
+  let otherUser;
+  try {
+    otherUser = await getUserByUsername(name);
+  } catch (error) {
+    console.error("User is not found", error);
+  }
+
+  if (!user || !otherUser) {
+    console.error("User or other user is not found");
+    return null;
+  }
+
+  if (user.id === otherUser.id) {
+    console.error("User and other user are the same");
+    return false;
+  }
+
+  const result = await db.block.findUnique({
+    where: {
+      blockerId_blockedId: {
+        blockerId: otherUser.id,
+        blockedId: user.id,
+      },
+    },
+  });
+
+  return !!result;
+}
+
 export async function blockUser(name: string) {
   let user;
   try {
