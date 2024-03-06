@@ -39,9 +39,6 @@ const ButtonAction = ({
   const [isblockPending, startBlockTransition] = useTransition();
 
 
-  interface CustomToastProps {
-    message: string;
-  }
 
 
 

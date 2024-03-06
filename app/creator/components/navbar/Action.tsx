@@ -1,5 +1,6 @@
 import { SignInButton, currentUser, UserButton } from "@clerk/nextjs";
-import { LayoutDashboard } from "lucide-react";
+import { LayoutDashboard, LogOut } from "lucide-react";
+
 import { Button } from "@/components/ui/button";
 import { Skeleton } from "@/components/ui/skeleton";
 import { Suspense } from "react";
@@ -11,12 +12,19 @@ const Action = async () => {
   return (
     <div className="flex gap-8 mr-4">
       {user && (
-        <Link href="creator/dashboard">
-          <div className="flex items-center gap-2 cursor-pointer">
-            <LayoutDashboard className="text-muted-foreground" />
-            <p className="hidden lg:block font-semibold">Dashboard</p>
-          </div>
-        </Link>
+        <div className="flex items-center gap-2 cursor-pointer">
+
+
+
+          {user && (
+            <Link href="/">
+              <div className="flex items-center gap-2 cursor-pointer">
+                <LogOut className="text-muted-foreground" />
+                <p className="hidden lg:block font-semibold">Home</p>
+              </div>
+            </Link>
+          )}
+        </div>
       )}
       {!user && (
         <SignInButton>
