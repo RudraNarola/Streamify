@@ -5,6 +5,8 @@ import { ThemeProvider } from "@/components/theme-provider";
 const inter = Inter({ subsets: ["latin"] });
 import "./globals.css";
 import { dark } from "@clerk/themes";
+// import {Toaster} from "sonner";
+import toast, { Toaster } from "react-hot-toast";
 
 export const metadata: Metadata = {
   title: "Streamify",
@@ -25,7 +27,34 @@ export default function RootLayout({
             forcedTheme="dark"
             storageKey="streamify-theme"
           >
-            
+            <Toaster
+              position="bottom-center"
+              reverseOrder={false}
+              toastOptions={{
+                loading: {
+                  style: {
+                    // width: "80%",
+                    maxWidth: "400px",
+                    margin: "0 auto",
+                  },
+                },
+                success: {
+                  style: {
+                    // width: "80%",
+                    maxWidth: "400px",
+                    margin: "0 auto",
+                  },
+                },
+                error: {
+                  style: {
+                    // width: "80%",
+                    maxWidth: "400px",
+                    margin: "0 auto",
+                  },
+                },
+              }}
+            />
+
             {children}
           </ThemeProvider>
         </body>

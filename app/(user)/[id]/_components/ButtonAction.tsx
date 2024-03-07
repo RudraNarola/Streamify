@@ -2,6 +2,9 @@
 import { onBlock, onUnblock } from "@/actions/block";
 import { onFollow, onUnfollow } from "@/actions/follow";
 import { Button } from "@/components/ui/button";
+import { useTransition } from "react";
+// import { toast } from "sonner";
+import toast from "react-hot-toast";
 
 const ButtonAction = ({
   isFollowing,
@@ -28,28 +31,72 @@ const ButtonAction = ({
     const result = await onBlock(userId);
   };
 
+  const [isfollowPending, startFollowTransition] = useTransition();
+  const [isblockPending, startBlockTransition] = useTransition();
+
+<<<<<<< HEAD
+
+=======
+  interface CustomToastProps {
+    message: string;
+  }
+>>>>>>> 47738eef75b5ae37004bb01fd884abce03fde7ad
+
   const handleFollow = () => {
     if (isFollowing) {
-      unfollowFunction();
+      startFollowTransition(() => {
+        unfollowFunction().then(() => {
+          toast.promise(unfollowFunction(), {
+            loading: `Unfollowing ${userId}`,
+            success: `Unfollowed ${userId}`,
+            error: `Failed to unfollow the user ${userId}`,
+          });
+        });
+      });
     } else {
-      followFunction();
+      startFollowTransition(() => {
+        followFunction().then(() => {
+          toast.promise(followFunction(), {
+            loading: `Following ${userId}`,
+            success: `Followed ${userId}`,
+            error: `Failed to follow the user ${userId}`,
+          });
+        });
+      });
     }
   };
 
   const handleBlock = () => {
     if (isBlocked) {
-      unblockFunction();
+      startBlockTransition(() => {
+        unblockFunction().then(() => {
+          toast.promise(unblockFunction(), {
+            loading: `Unblocking ${userId}`,
+            success: `Unblocked ${userId}`,
+            error: `Failed to unblock the user ${userId}`,
+          });
+        });
+      });
     } else {
-      blockFunction();
+      startBlockTransition(() => {
+        blockFunction().then(() => {
+          toast.promise(blockFunction(), {
+            loading: `Blocking ${userId}`,
+            success: `Blocked ${userId}`,
+            error: `Failed to block the user ${userId}`,
+          });
+        });
+      });
     }
   };
-
   return (
     <>
-      <Button onClick={handleFollow}>
+      <Button disabled={isfollowPending} onClick={handleFollow}>
         {isFollowing ? "Unfollow" : "Follow"}
       </Button>
-      <Button onClick={handleBlock}>{isBlocked ? "Unblock" : "Block"}</Button>
+      <Button disabled={isblockPending} onClick={handleBlock}>
+        {isBlocked ? "Unblock" : "Block"}
+      </Button>
     </>
   );
 };
