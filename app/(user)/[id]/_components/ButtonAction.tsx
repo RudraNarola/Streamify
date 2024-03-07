@@ -34,13 +34,6 @@ const ButtonAction = ({
   const [isfollowPending, startFollowTransition] = useTransition();
   const [isblockPending, startBlockTransition] = useTransition();
 
-<<<<<<< HEAD
-
-=======
-  interface CustomToastProps {
-    message: string;
-  }
->>>>>>> 47738eef75b5ae37004bb01fd884abce03fde7ad
 
   const handleFollow = () => {
     if (isFollowing) {
