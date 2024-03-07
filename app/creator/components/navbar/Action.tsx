@@ -13,9 +13,6 @@ const Action = async () => {
     <div className="flex gap-8 mr-4">
       {user && (
         <div className="flex items-center gap-2 cursor-pointer">
-
-
-
           {user && (
             <Link href="/">
               <div className="flex items-center gap-2 cursor-pointer">

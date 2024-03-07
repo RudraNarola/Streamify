@@ -11,11 +11,7 @@ const Action = async () => {
   return (
     <div className="flex gap-8 mr-4">
       {user && (
-<<<<<<< HEAD
-        <Link href="/dashboard">
-=======
         <Link href="creator/dashboard">
->>>>>>> 2af46e52699d42edc26a40775b720afd6f1eb58a
           <div className="flex items-center gap-2 cursor-pointer">
             <LayoutDashboard className="text-muted-foreground" />
             <p className="hidden lg:block font-semibold">Dashboard</p>
