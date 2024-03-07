@@ -9,7 +9,7 @@ const Action = async () => {
   const user = await currentUser();
 
   return (
-    <div className="flex gap-8 mr-4">
+    <div className="flex gap-8 mr-4 items-center">
       {user && (
         <Link href="creator/dashboard">
           <div className="flex items-center gap-2 cursor-pointer">
