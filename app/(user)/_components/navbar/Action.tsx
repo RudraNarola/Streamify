@@ -3,6 +3,7 @@ import { LayoutDashboard } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Skeleton } from "@/components/ui/skeleton";
 import { Suspense } from "react";
+import Link from "next/link";
 
 const Action = async () => {
   const user = await currentUser();
@@ -10,10 +11,12 @@ const Action = async () => {
   return (
     <div className="flex gap-8 mr-4">
       {user && (
-        <div className="flex items-center gap-2 cursor-pointer">
-          <LayoutDashboard className="text-muted-foreground" />
-          <p className="hidden lg:block font-semibold">Dashboard</p>
-        </div>
+        <Link href="/dashboard">
+          <div className="flex items-center gap-2 cursor-pointer">
+            <LayoutDashboard className="text-muted-foreground" />
+            <p className="hidden lg:block font-semibold">Dashboard</p>
+          </div>
+        </Link>
       )}
       {!user && (
         <SignInButton>
