@@ -13,13 +13,24 @@ const page = async () => {
 
   return (
     <>
-      <div className="flex w-full flex-col gap-6">
-        <h2 className="text-2xl mt-8 ml-8 font-bold">Chat Settings</h2>
-        <div className="bg-muted p-10 mx-auto flex flex-col gap-4 rounded-md">
-          <ToggleItems label="Live" checked={stream.isLive} />
-          <ToggleItems label="Chat Enable" checked={stream.isChatEnabled} />
-          <ToggleItems label="Chat Delay" checked={stream.isChatDelayed} />
+      <div className="w-full p-6">
+        <div className="mb-4">
+          <h1 className="text-2xl font-bold">Chat Settings</h1>
+        </div>
+        <div className="space-y-4 px-14 py-4">
+          {/* <ToggleItems field="isLive" label="Live" checked={stream.isLive} /> */}
           <ToggleItems
+            field="isChatEnabled"
+            label="Enable Chat"
+            checked={stream.isChatEnabled}
+          />
+          <ToggleItems
+            field="isChatDelayed"
+            label="Chat Delay"
+            checked={stream.isChatDelayed}
+          />
+          <ToggleItems
+            field="isChatFollowersOnly"
             label="Chat Follower Only"
             checked={stream.isChatFollowersOnly}
           />
