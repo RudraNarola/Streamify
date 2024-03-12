@@ -1,8 +1,5 @@
-import Navbar from "./components/navbar/Navbar";
-import Sidebar from "./components/sidebar/Sidebar";
-
-
-
+import Navbar from "./_components/navbar/Navbar";
+import Sidebar from "./_components/sidebar/Sidebar";
 
 export default function UserLayout({
   children,
@@ -11,12 +8,9 @@ export default function UserLayout({
 }) {
   return (
     <>
-
       <Navbar />
 
       <main className="h-full flex flex-row mt-20">
-
-
         <Sidebar />
 
         {children}
