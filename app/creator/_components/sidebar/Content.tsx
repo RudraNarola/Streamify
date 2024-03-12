@@ -1,61 +1,79 @@
+
+
 "use client";
 import { Tv, KeySquare, MessageSquareText, UsersRound } from "lucide-react";
-import { cn } from "@/lib/utils";
-import { useCreatorCollapse } from "@/store/useCreatorCollapse";
-import Link from "next/link";
+import { SidebarNavigationItem, NavItemSkeleton } from "./SidebarNavigation";
+import { usePathname } from "next/navigation";
+import { useUser } from "@clerk/nextjs";
 
 export default function Content() {
-  const { collapse } = useCreatorCollapse();
+const pathname = usePathname();
+const { user } = useUser();
 
+const routes = [
+  {
+    label: "Stream",
+      href: "/creator/stream",
+      icon: Tv ,
+  }
+  ,
+  {
+    label: "Keys",
+      href: "/creator/keys",
+      icon: KeySquare  ,
+    
+  }
+  ,
+  {
+    label: "Chat",
+      href: "/creator/chat",
+      icon: MessageSquareText ,
+  }
+  ,
+  {
+    label: "Community",
+      href: "/creator/community",
+      icon: UsersRound ,
+      
+  }
+];
+
+if (!user?.username) {
   return (
-    <div className={cn(collapse ? "mt-1 pl-2" : "mt-1 pl-2 lg:mt-6")}>
-      {!collapse && (
-        <div className="flex flex-col space-y-5">
-          <Link href="/creator/stream">
-            <div className="flex items-center space-x-3">
-              <Tv size={24} />
-              <span className=" max-lg:hidden">Stream</span>
-            </div>
-          </Link>
-
-          <Link href="/creator/keys">
-            <div className="flex items-center space-x-3">
-              <KeySquare size={24} />
-              <span className="max-lg:hidden">Keys</span>
-            </div>
-          </Link>
-
-          <Link href="/creator/chat">
-            <div className="flex items-center space-x-3">
-              <MessageSquareText size={24} />
-              <span className="max-lg:hidden">Chat</span>
-            </div>
-          </Link>
-
-          <Link href="/creator/community">
-            <div className="flex items-center space-x-3">
-              <UsersRound size={24} />
-              <span className="max-lg:hidden">Community</span>
-            </div>
-          </Link>
-        </div>
-      )}
-      {collapse && (
-        <div className="flex flex-col space-y-5">
-          <Link href="">
-            <Tv size={24} />
-          </Link>
-          <Link href="">
-            <KeySquare size={24} />
-          </Link>
-          <Link href="">
-            <MessageSquareText size={24} />
-          </Link>
-          <Link href="">
-            <UsersRound size={24} />
-          </Link>
-        </div>
-      )}
-    </div>
+    <ul className="space-y-2">
+      {[...Array(4)].map((_, i) => (
+        <NavItemSkeleton key={i} />
+      ))}
+    </ul>
   );
 }
+
+
+
+return (
+  <ul className="space-y-2 px-2 pt-4 lg:pt-0">
+  {routes.map((route) => (
+     <SidebarNavigationItem
+       key={route.href}
+       label={route.label}
+       icon={route.icon}
+       href={route.href}
+       isActive={pathname === route.href}
+       iconSize={30}
+       
+       
+     />
+  ))}
+  </ul>
+
+)
+};
+
+
+
+
+
+
+
+
+

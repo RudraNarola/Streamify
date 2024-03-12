@@ -14,6 +14,7 @@ export async function getUserStream() {
     },
   });
 
+
   if (!userStream) {
     throw new Error("User stream not found");
   }

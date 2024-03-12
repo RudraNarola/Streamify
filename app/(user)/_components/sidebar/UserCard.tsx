@@ -8,7 +8,7 @@ import { useCollapse } from "@/store/useCollapse";
 import { cva, type VariantProps } from "class-variance-authority";
 import Image from "next/image";
 import Link from "next/link";
-
+import { usePathname } from "next/navigation";
 
 const avatarSizes = cva(
 
@@ -37,8 +37,12 @@ interface Props {
 
 
 const UserCard = ({ imageUrl, username }: Props) => {
-  const isActive = false;
+  
   const { collapse } = useCollapse();
+  const pathname = usePathname();
+  const href = `/${username}`;
+  const isActive = pathname === href;
+  
   return (
     <Button
       asChild
