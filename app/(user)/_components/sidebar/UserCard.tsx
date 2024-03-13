@@ -9,32 +9,22 @@ import { cva, type VariantProps } from "class-variance-authority";
 import Image from "next/image";
 import Link from "next/link";
 
-
-const avatarSizes = cva(
-
-  "",
-  {
-    variants: {
-      size: {
-        default: "h-8 w-8",
-        lg: "h-14 w-14",
-      },
+const avatarSizes = cva("", {
+  variants: {
+    size: {
+      default: "h-8 w-8",
+      lg: "h-14 w-14",
     },
-    defaultVariants: {
-      size: "default",
-    },
-
   },
-);
+  defaultVariants: {
+    size: "default",
+  },
+});
 
 interface Props {
   imageUrl: string;
   username: string;
 }
-
-
-
-
 
 const UserCard = ({ imageUrl, username }: Props) => {
   const isActive = false;
@@ -74,33 +64,19 @@ const UserCard = ({ imageUrl, username }: Props) => {
 
 export default UserCard;
 
-interface UserCardSkeletonProps  extends VariantProps<typeof avatarSizes>{};
+interface UserCardSkeletonProps extends VariantProps<typeof avatarSizes> {}
 
-
-export const UserCardSkeleton = ({
-  size,
-
-
-}:UserCardSkeletonProps)=>{
-  return(
-    <Skeleton className ={
-      cn(
-        "rounded-full",
-        avatarSizes({size}),
-
-      )
-    }/>
-  )
-
+export const UserCardSkeleton = ({ size }: UserCardSkeletonProps) => {
+  return <Skeleton className={cn("rounded-full", avatarSizes({ size }))} />;
 };
 
-export const UserItemSkeleton = ()=>{
-  return(
+export const UserItemSkeleton = () => {
+  return (
     <li className="flex items-center gap-x-4 px-3 py-2">
-      <Skeleton className ="min-h-[32px] min-w-[32px] rounded-full"/>
+      <Skeleton className="min-h-[32px] min-w-[32px] rounded-full" />
       <div className="flex-1">
         <Skeleton className="h-6" />
       </div>
-      </li>
+    </li>
   );
 };
