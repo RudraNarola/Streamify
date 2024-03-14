@@ -2,7 +2,7 @@
 import { currentUser } from "@clerk/nextjs";
 import { db } from "../database";
 
-export const getUser = async () => {
+export const getCurrentUser = async () => {
   const clerkUser = await currentUser();
 
   if (!clerkUser) {
@@ -38,13 +38,28 @@ export const getUserByUsername = async (username: string) => {
   return user;
 };
 
-export const getFollowed = async () => {
+export const getUserById = async (userId: string) => {
+  const user = await db.user.findUnique({
+    where: {
+      id: userId,
+    },
+  });
+
+  if (!user) {
+    throw new Error("User not found");
+  }
+
+  return user;
+};
+
+// function also exist in follow.services
+export const getFollowedChannel = async () => {
   const result = await db.user.findMany();
   return result;
 };
 
-export const getRecommended = async () => {
-  const user = await getUser();
+export const getRecommendedChannel = async () => {
+  const user = await getCurrentUser();
   const result = await db.user.findMany({
     where: {
       AND: [
@@ -72,6 +87,13 @@ export const getRecommended = async () => {
           },
         },
       ],
+    },
+    include: {
+      stream: {
+        select: {
+          isLive: true,
+        },
+      },
     },
   });
   return result;

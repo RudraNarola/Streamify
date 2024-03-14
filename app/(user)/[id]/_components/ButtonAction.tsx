@@ -3,7 +3,6 @@ import { onBlock, onUnblock } from "@/actions/block";
 import { onFollow, onUnfollow } from "@/actions/follow";
 import { Button } from "@/components/ui/button";
 import { useTransition } from "react";
-// import { toast } from "sonner";
 import toast from "react-hot-toast";
 
 const ButtonAction = ({

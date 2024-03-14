@@ -2,13 +2,16 @@ import FollowedChannel, { FollowedChannelSkeleton } from "./FollowedChannel";
 import RecommendChannel, { RecommendedSkeleton } from "./RecommendChannel";
 import Header from "./Header";
 import Wrapper from "./Wrapper";
-import { getFollowed, getRecommended } from "@/lib/services/user.services";
+import {
+  getFollowedChannel,
+  getRecommendedChannel,
+} from "@/lib/services/user.services";
 import { getFollowedUser } from "@/lib/services/follow.services";
 
 const Sidebar = async () => {
   // query for data here only then pass to FollowChannel & RecommendChannel
   const followedData = await getFollowedUser();
-  const recommendedData = await getRecommended();
+  const recommendedData = await getRecommendedChannel();
 
   return (
     <>

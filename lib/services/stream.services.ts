@@ -1,8 +1,8 @@
 import { db } from "../database";
-import { getUser } from "./user.services";
+import { getCurrentUser } from "./user.services";
 
 export async function getUserStream() {
-  const user = await getUser();
+  const user = await getCurrentUser();
 
   if (!user) {
     throw new Error("User not found");

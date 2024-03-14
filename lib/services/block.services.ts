@@ -1,10 +1,10 @@
 import { db } from "../database";
-import { getUser, getUserByUsername } from "./user.services";
+import { getCurrentUser, getUserByUsername } from "./user.services";
 
 export async function isBlocked(name: string) {
   let user;
   try {
-    user = await getUser();
+    user = await getCurrentUser();
   } catch (error) {
     console.error("Current user is not found", error);
   }
@@ -41,7 +41,7 @@ export async function isBlocked(name: string) {
 export async function isBlockedByUser(name: string) {
   let user;
   try {
-    user = await getUser();
+    user = await getCurrentUser();
   } catch (error) {
     console.error("Current user is not found", error);
   }
@@ -78,7 +78,7 @@ export async function isBlockedByUser(name: string) {
 export async function blockUser(name: string) {
   let user;
   try {
-    user = await getUser();
+    user = await getCurrentUser();
   } catch (error) {
     console.error("Current user is not found", error);
   }
@@ -132,7 +132,7 @@ export async function blockUser(name: string) {
 export async function unBlockUser(name: string) {
   let user;
   try {
-    user = await getUser();
+    user = await getCurrentUser();
   } catch (error) {
     console.error("Current user is not found", error);
   }

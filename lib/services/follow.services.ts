@@ -1,10 +1,10 @@
 import { db } from "../database";
-import { getUser, getUserByUsername } from "./user.services";
+import { getCurrentUser, getUserByUsername } from "./user.services";
 
 export async function isFollowing(name: string) {
   let user;
   try {
-    user = await getUser();
+    user = await getCurrentUser();
   } catch (error) {
     console.error("Current user is not found", error);
   }
@@ -39,7 +39,7 @@ export async function isFollowing(name: string) {
 export async function followUser(name: string) {
   let user;
   try {
-    user = await getUser();
+    user = await getCurrentUser();
   } catch (error) {
     console.error("Current user is not found", error);
   }
@@ -91,7 +91,7 @@ export async function followUser(name: string) {
 export async function unFollowUser(name: string) {
   let user;
   try {
-    user = await getUser();
+    user = await getCurrentUser();
   } catch (error) {
     console.error("Current user is not found", error);
   }
@@ -145,7 +145,7 @@ export async function unFollowUser(name: string) {
 export async function getFollowedUser() {
   let user;
   try {
-    user = await getUser();
+    user = await getCurrentUser();
   } catch (error) {
     console.error("Current user is not found", error);
   }

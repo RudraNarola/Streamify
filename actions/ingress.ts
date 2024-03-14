@@ -12,7 +12,7 @@ import {
 import { TrackSource } from "livekit-server-sdk/dist/proto/livekit_models_pb";
 
 import { db } from "@/lib/database";
-import { getUser } from "@/lib/services/user.services";
+import { getCurrentUser } from "@/lib/services/user.services";
 import { revalidatePath } from "next/cache";
 
 const roomService = new RoomServiceClient(
@@ -42,7 +42,7 @@ export const resetIngresses = async (hostId: string) => {
 };
 
 export const createIngress = async (ingressType: IngressInput) => {
-  const self = await getUser();
+  const self = await getCurrentUser();
 
   await resetIngresses(self.id);
 

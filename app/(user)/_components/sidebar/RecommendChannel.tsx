@@ -1,10 +1,22 @@
 "use client";
-import { User } from "@prisma/client";
+import { User, Stream } from "@prisma/client";
 import UserCard, { UserCardSkeleton, UserItemSkeleton } from "./UserCard";
 import { useCollapse } from "@/store/useCollapse";
 import { cn } from "@/lib/utils";
 interface Props {
-  data: User[];
+  data: ({
+    stream: {
+      isLive: boolean;
+    } | null;
+  } & {
+    id: string;
+    username: string;
+    imageUrl: string;
+    externalId: string;
+    bio: string | null;
+    createdAt: Date;
+    updatedAt: Date;
+  })[];
 }
 
 const RecommendChannel = ({ data }: Props) => {
@@ -24,6 +36,7 @@ const RecommendChannel = ({ data }: Props) => {
               key={user.id}
               imageUrl={user.imageUrl}
               username={user.username}
+              isLive={user.stream?.isLive}
             />
           );
         })}

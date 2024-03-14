@@ -8,6 +8,7 @@ import { useCollapse } from "@/store/useCollapse";
 import { cva, type VariantProps } from "class-variance-authority";
 import Image from "next/image";
 import Link from "next/link";
+import { usePathname } from "next/navigation";
 
 const avatarSizes = cva("", {
   variants: {
@@ -24,11 +25,15 @@ const avatarSizes = cva("", {
 interface Props {
   imageUrl: string;
   username: string;
+  isLive?: boolean | false;
 }
 
-const UserCard = ({ imageUrl, username }: Props) => {
-  const isActive = false;
+const UserCard = ({ imageUrl, username, isLive }: Props) => {
   const { collapse } = useCollapse();
+  const pathname = usePathname();
+  const href = `/${username}`;
+  const isActive = pathname === href;
+
   return (
     <Button
       asChild
@@ -47,7 +52,12 @@ const UserCard = ({ imageUrl, username }: Props) => {
           )}
         >
           {/*  if live then ring should have color red & have live badge */}
-          <Avatar className="ring-2 ring-gray-600 border-background">
+          <Avatar
+            className={
+              (cn("ring-2 ring-red-400 border-background object-contain"),
+              true ? "ring-green-500" : "ring-gray-600")
+            }
+          >
             <AvatarImage
               src={imageUrl}
               className="object-contain"
@@ -57,6 +67,9 @@ const UserCard = ({ imageUrl, username }: Props) => {
           </Avatar>
           {!collapse && <p className="text-ellipsis">{username}</p>}
         </div>
+        {isLive ? (
+          <div className="bg-green-500 px-2 py-1 text-sm rounded-sm ">Live</div>
+        ) : null}
       </Link>
     </Button>
   );
