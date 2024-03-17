@@ -24,10 +24,10 @@ export const getCurrentUser = async () => {
   return user;
 };
 
-export const getUserByUsername = async (username: string) => {
+export const getUserByUsername = async (userName: string) => {
   const user = await db.user.findUnique({
     where: {
-      username,
+      username: userName,
     },
   });
 
@@ -42,6 +42,26 @@ export const getUserById = async (userId: string) => {
   const user = await db.user.findUnique({
     where: {
       id: userId,
+    },
+    include: {
+      stream: true,
+    },
+  });
+
+  if (!user) {
+    throw new Error("User not found");
+  }
+
+  return user;
+};
+
+export const getUserByExternalId = async (externalId: string) => {
+  const user = await db.user.findUnique({
+    where: {
+      externalId,
+    },
+    include: {
+      stream: true,
     },
   });
 
