@@ -22,7 +22,7 @@ export const createViewerToken = async (hostId: string) => {
     throw new Error("Host not found");
   }
 
-  const isBlocked = await isBlockedByUser(host.id);
+  const isBlocked = await isBlockedByUser(host.username);
 
   if (isBlocked) {
     throw new Error("You are blocked by the host");

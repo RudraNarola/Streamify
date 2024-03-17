@@ -29,6 +29,9 @@ export const getUserByUsername = async (userName: string) => {
     where: {
       username: userName,
     },
+    include: {
+      stream: true,
+    },
   });
 
   if (!user) {

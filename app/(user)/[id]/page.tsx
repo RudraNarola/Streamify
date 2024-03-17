@@ -2,7 +2,6 @@ import { isFollowing } from "@/lib/services/follow.services";
 import ButtonAction from "./_components/ButtonAction";
 import { isBlocked, isBlockedByUser } from "@/lib/services/block.services";
 import { notFound } from "next/navigation";
-import { StreamPlayer } from "@/components/stream-player";
 
 const Page = async ({ params }: { params: { id: string } }) => {
   const isFollowingResult = await isFollowing(params.id);

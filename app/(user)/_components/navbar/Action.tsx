@@ -11,7 +11,7 @@ const Action = async () => {
   return (
     <div className="flex gap-8 mr-4 items-center">
       {user && (
-        <Link href="creator/dashboard">
+        <Link href={`creator/${user.username}`}>
           <div className="flex items-center gap-2 cursor-pointer">
             <LayoutDashboard className="text-muted-foreground" />
             <p className="hidden lg:block font-semibold">Dashboard</p>

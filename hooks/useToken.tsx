@@ -1,4 +1,3 @@
-"use client";
 import { useEffect, useState } from "react";
 import { JwtPayload, jwtDecode } from "jwt-decode";
 
@@ -20,6 +19,7 @@ const useToken = (hostId: string) => {
         const decodedToken = jwtDecode(viewerTokwen) as JwtPayload & {
           name?: string;
         };
+
         const name = decodedToken?.name;
         const identity = decodedToken?.jti;
 
