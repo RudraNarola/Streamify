@@ -26,7 +26,6 @@
     "class-variance-authority": "^0.7.0",
     "clsx": "^2.1.0",
     "date-fns": "^3.5.0",
-    "fns": "^1.0.0",
     "jwt-decode": "^4.0.0",
     "livekit-client": "^2.0.5",
     "livekit-server-sdk": "^2.0.4",
