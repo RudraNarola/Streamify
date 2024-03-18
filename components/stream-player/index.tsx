@@ -10,6 +10,7 @@ import { hostname } from "os";
 import { Chat, ChatSkeleton } from "./chat";
 import { ChatToggle } from "./chat-toggle";
 import { Header, HeaderSkeleton } from "./header";
+import { InfoCard } from "./info-card";
 
 interface StreamPlayerProps {
   user: User & { stream: Stream | null };
@@ -59,6 +60,12 @@ export const StreamPlayer = ({
             name={stream.name}
             // isLive={stream.isLive}
             isLive
+          />
+          <InfoCard
+            hostIdentity={user.id}
+            viewerIdentity={identity}
+            name={stream.name}
+            thumbnailUrl={stream?.thumbnailUrl}
           />
         </div>
         <div className={cn("col-span-1 2xl:col-span-2", collapse && "hidden")}>
