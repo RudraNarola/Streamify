@@ -21,7 +21,7 @@ const useToken = (hostId: string) => {
         };
 
         const name = decodedToken?.name;
-        const identity = decodedToken?.jti;
+        const identity = decodedToken?.sub;
 
         if (name) setName(name);
         if (identity) setIdentity(identity);

@@ -39,6 +39,8 @@ export const createViewerToken = async (hostId: string) => {
     }
   );
 
+  // console.log(token); we are sending identity
+
   token.addGrant({
     roomJoin: true,
     room: hostId,
