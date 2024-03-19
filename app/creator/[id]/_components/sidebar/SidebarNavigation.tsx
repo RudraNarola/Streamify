@@ -30,24 +30,28 @@ export const SidebarNavigationItem = ({
       asChild
       variant="ghost"
       className={cn(
-        "w-full h-12  ",
-        collapse ? "justify-center" : "justify-start ",
+        "w-full h-12 max-lg:p-0",
+        collapse ? "justify-center  p-0" : "justify-start",
         isActive && "bg-accent"
       )}
     >
       <Link href={href}>
-        
-
-        <div className=" flex   items-center gap-x-2 text-base ">
-
-        
+        <div
+          className={cn(
+            "flex items-center gap-x-2 w-full max-lg:justify-center",
+            collapse && "justify-center"
+          )}
+        >
           <Icon
-            className={cn("h-6 w-6", collapse ? "mr-0" : "mr-2")}
-            size={iconSize}
-            />
-          {!collapse && <span>{label}</span>}
+            className={
+              cn()
+              // "h-6 w-6"
+              //  collapse ? "mr-0" : "mr-2"
+            }
+            // size={iconSize}
+          />
+          {!collapse && <p className="max-lg:hidden">{label}</p>}
         </div>
-            
       </Link>
     </Button>
   );

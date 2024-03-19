@@ -51,7 +51,6 @@ const UserCard = ({ imageUrl, username, isLive }: Props) => {
             collapse && "justify-center"
           )}
         >
-          {/*  if live then ring should have color red & have live badge */}
           <Avatar
             className={
               (cn("ring-2 ring-red-400 border-background object-contain"),

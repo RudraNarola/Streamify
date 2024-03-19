@@ -21,7 +21,7 @@ const Header = () => {
         variant="ghost"
         size={"sm"}
         onClick={handleExpansion}
-        className="pl-2 flex   justify-center items-center mb-2 max-lg:hidden"
+        className="pl-2 flex  justify-center items-center mb-2 max-lg:hidden"
       >
         <ArrowRightToLine />
       </Button>

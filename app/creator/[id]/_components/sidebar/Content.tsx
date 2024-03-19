@@ -42,7 +42,7 @@ export default function Content() {
   }
 
   return (
-    <ul className=" flex flex-col   space-y-2  pt-4">
+    <ul className=" w-full flex gap-y-1 flex-col pt-4">
       {routes.map((route) => (
         <SidebarNavigationItem
           key={route.href}
