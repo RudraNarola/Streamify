@@ -10,7 +10,7 @@ const Wrapper = ({ children }: { children: React.ReactNode }) => {
       className={cn(
         "w-[60px] h-full bg-[#1b1d24] p-2",
         collapse === false ? "lg:w-60" : "",
-        "transition transform duration-300 ease-in-out overflow-y-auto scrollbar-hide"
+        "   transition transform duration-300 ease-in-out overflow-y-auto  scrollbar-hide"  
       )}
     >
       {children}
@@ -19,3 +19,4 @@ const Wrapper = ({ children }: { children: React.ReactNode }) => {
 };
 
 export default Wrapper;
+
