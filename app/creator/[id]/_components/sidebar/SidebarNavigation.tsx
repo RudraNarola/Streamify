@@ -30,19 +30,24 @@ export const SidebarNavigationItem = ({
       asChild
       variant="ghost"
       className={cn(
-        "w-full h-12",
-        collapse ? "justify-center" : "justify-start",
+        "w-full h-12  ",
+        collapse ? "justify-center" : "justify-start ",
         isActive && "bg-accent"
       )}
     >
       <Link href={href}>
-        <div className="flex items-center gap-x-4 text-base">
+        
+
+        <div className=" flex   items-center gap-x-2 text-base ">
+
+        
           <Icon
             className={cn("h-6 w-6", collapse ? "mr-0" : "mr-2")}
             size={iconSize}
-          />
+            />
           {!collapse && <span>{label}</span>}
         </div>
+            
       </Link>
     </Button>
   );
@@ -50,7 +55,7 @@ export const SidebarNavigationItem = ({
 
 export const NavItemSkeleton = () => {
   return (
-    <li className="flex items-center gap-x-4 px-3 py-2">
+    <li className="flex  items-center gap-x-4 md:px-3 px-1 py-2 ">
       <Skeleton className="min-h-[40px] min-w-[40px] rounded-md" />
       <div className="flex-1 hidden lg:block">
         <Skeleton className="h-6" />
