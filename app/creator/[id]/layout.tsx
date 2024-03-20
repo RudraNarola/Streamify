@@ -2,8 +2,6 @@ import { Suspense } from "react";
 import Navbar from "./_components/navbar/Navbar";
 import Sidebar from "./_components/sidebar/Sidebar";
 
-
-
 export default function UserLayout({
   children,
 }: {
@@ -15,9 +13,8 @@ export default function UserLayout({
 
       <main className="h-full flex flex-row mt-20">
         {/* <Suspense fallback={<CreatorSidebarSkeleton />}> */}
-          <Sidebar />
+        <Sidebar />
         {/* </Suspense> */}
-        
 
         {children}
       </main>

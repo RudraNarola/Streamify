@@ -7,14 +7,14 @@ import { revalidatePath } from "next/cache";
 
 export const updateStream = async (values: Partial<Stream>) => {
   try {
-    const stream = await getUserStream();
+    const selfStream = await getUserStream();
 
-    if (!stream) {
+    if (!selfStream) {
       throw new Error("Stream not found");
     }
 
     const data = {
-      thumbnail: values.thumbnailUrl,
+      thumbnailUrl: values.thumbnailUrl,
       name: values.name,
       isLive: values.isLive,
       isChatEnabled: values.isChatEnabled,
@@ -24,15 +24,18 @@ export const updateStream = async (values: Partial<Stream>) => {
 
     const streamUpdated = await db.stream.update({
       where: {
-        id: stream.id,
+        id: selfStream.id,
       },
       data: {
         ...data,
       },
     });
 
-    revalidatePath("/creator/chat");
-    revalidatePath(`${stream.userId}`);
-    revalidatePath("/creator/dashboard");
-  } catch (error) {}
+    revalidatePath(`/creator/${selfStream.userId}/chat`);
+    revalidatePath(`/creator/${selfStream.userId}`);
+    revalidatePath(`/${selfStream.userId}`);
+  } catch (error) {
+    console.error(error);
+    throw new Error("Internal Error");
+  }
 };

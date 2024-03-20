@@ -62,6 +62,7 @@ export const InfoModal = ({
         .then(() => {
           setThumbnailUrl("");
           toast.success("Thumbnail Removed");
+          closeRef?.current?.click();
         })
         .catch(() => {
           toast.error("Something Went Wrong!");

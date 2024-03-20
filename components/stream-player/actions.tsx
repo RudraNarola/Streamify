@@ -65,7 +65,7 @@ export const Actions = ({ hostIdentity, isFollowing, isHost }: Props) => {
       disabled={isPending || isHost}
       variant={"primary"}
       size={"sm"}
-      className="w-full lg:w-auto"
+      className="w-full lg:w-auto ml-auto"
     >
       <Heart
         className={cn("h-4 w-4 mr-2", isFollowing ? "fill-white" : "fill-none")}
