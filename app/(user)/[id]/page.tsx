@@ -1,9 +1,37 @@
-import { isFollowing } from "@/lib/services/follow.services";
-import ButtonAction from "./_components/ButtonAction";
+import { StreamPlayer } from "@/components/stream-player";
 import { isBlocked, isBlockedByUser } from "@/lib/services/block.services";
+import { isFollowing } from "@/lib/services/follow.services";
+import { getUserByUsername } from "@/lib/services/user.services";
 import { notFound } from "next/navigation";
 
-const Page = async ({ params }: { params: { id: string } }) => {
+
+
+interface UserPageProps {
+  params: {
+    id: string
+  }
+}
+
+
+
+const Page = async ({ params }: UserPageProps) => {
+
+  const user = await getUserByUsername(params.id);
+  if (!user || !user.username) {
+    notFound();
+  }
+
+  // const isFollow = await isFollowing(params.id);
+  // const isBlock = await isBlocked(params.id);
+
+
+
+  // if (isBlock) {
+  //   notFound();
+  // }
+
+
+
   const isFollowingResult = await isFollowing(params.id);
   const isBlockedResult = await isBlocked(params.id);
 
@@ -14,20 +42,16 @@ const Page = async ({ params }: { params: { id: string } }) => {
     return notFound();
   }
 
-  return (
-    <>
-      <div className="flex flex-col gap-4 ml-10 mt-4">
-        <div>User: {params.id}</div>
-        <div>isFollowing: {isFollowingResult ? "true" : "false"}</div>
-        <div>isBlocked: {isBlockedResult ? "true" : "false"}</div>
 
-        <ButtonAction
-          isFollowing={!!isFollowingResult}
-          userId={params.id}
-          isBlocked={!!isBlockedResult}
-        />
-      </div>
-    </>
+  return(
+    <div className="flex flex-col w-full h-full">
+
+      <StreamPlayer
+        user={user}
+        stream={user.stream}
+        isFollowing={isFollowingResult}
+      />
+    </div>
   );
 };
 
