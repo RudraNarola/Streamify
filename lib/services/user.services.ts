@@ -5,7 +5,7 @@ import { db } from "../database";
 export const getCurrentUser = async () => {
   const clerkUser = await currentUser();
 
-  if (!clerkUser) {
+  if (!clerkUser || !clerkUser.username) {
     throw new Error("User not authenticated (Clerk)");
   }
 
