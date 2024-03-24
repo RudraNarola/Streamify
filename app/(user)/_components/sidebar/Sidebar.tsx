@@ -18,8 +18,11 @@ const Sidebar = async () => {
       {/* we wrap the Sidebar because so the Wrapper can be client component to use hooks while children can still be server component ro fetch data on server*/}
       <Wrapper>
         <Header />
+        <div className="space-y-4 pt-4 lg:pt-0">
+
         <FollowedChannel data={followedData} />
         <RecommendChannel data={recommendedData} />
+        </div>
       </Wrapper>
     </>
   );

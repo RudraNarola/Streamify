@@ -1,5 +1,5 @@
 import Logo from "./Logo";
-import Search from "./Search";
+import {Search} from "./Search";
 import Action, { UserButtonSkeleton } from "./Action";
 import { Suspense } from "react";
 

@@ -18,7 +18,7 @@ export const Dashboard = async ({ params }: CreatorPageProps) => {
     !user ||
     !externalUser ||
     !user.stream ||
-    user.externalId !== externalUser.id
+    user.externalId !== externalUser?.id
   ) {
     throw new Error("User not found or unauthorized");
   }

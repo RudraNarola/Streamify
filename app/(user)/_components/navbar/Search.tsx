@@ -1,52 +1,64 @@
 "use client";
 
+import qs from "query-string";
+import { useState } from "react";
+import { SearchIcon, X } from "lucide-react";
+import { useRouter } from "next/navigation";
+
+import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
-import { SearchIcon } from "lucide-react";
-import React from "react";
 
-const Search = () => {
-  function handleSubmit() {}
+export const Search = () => {
+  const router = useRouter();
+  const [value, setValue] = useState("");
 
-  const [search, setSearch] = React.useState("");
+  const onSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
 
-  const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-    setSearch(event.target.value);
+    if (!value) return;
+
+    const url = qs.stringifyUrl({
+      url: "/search",
+      query: { term: value },
+    }, { skipEmptyString: true });
+
+    router.push(url);
   };
 
-  const handleClear = () => {
-    setSearch("");
+  const onClear = () => {
+    setValue("");
   };
-
-  console.log(search);
 
   return (
     <form
-      onSubmit={handleSubmit}
+      onSubmit={onSubmit}
       className="relative w-full lg:w-[500px] flex items-center gap-1 lg:px-4"
     >
-      <div className="relative w-full">
-        <input
-          type="text"
-          placeholder="Search"
-          value={search}
-          onChange={handleChange}
-          className="focus-visible:ring-1 focus:ring-blue-400 focus:outline-none border border-gray-600 rounded-md py-2 px-8 w-full"
-        />
-        {search && (
+
+      <div className=" relative w-full">
+
+      
+      <Input
+        value={value}
+        onChange={(e) => setValue(e.target.value)}
+        placeholder="Search"
+        className="focus-visible:ring-1 focus:ring-blue-400 focus:outline-none border border-gray-600 rounded-md py-2 px-8 w-full"
+      />
+ {value && (
           <button
-            onClick={handleClear}
+            onClick={onClear}
             className="absolute inset-y-0 right-1 flex items-center pr-2 py-2  text-white-100 hover:text-gray-300  text-md font-bold "
           >
             X
           </button>
-        )}
-      </div>
 
-      <Button type="submit" size="sm" variant="ghost">
+        )}
+
+
+</div>
+       <Button type="submit" size="sm" variant="ghost">
         <SearchIcon className="h-5 w-5 text-muted-foreground" />
       </Button>
     </form>
   );
 };
-
-export default Search;

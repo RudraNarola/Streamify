@@ -180,3 +180,19 @@ export async function unBlockUser(name: string) {
   console.log("Unblock successfully");
   return result;
 }
+
+
+
+export const getBlockedUsers = async () => {
+  const user = await getCurrentUser();
+  const blockedUsers = await db.block.findMany({
+    where:{
+      blockerId: user.id,
+    },
+    include:{
+      blocked:true,
+    }
+  });
+  return blockedUsers;
+};
+

@@ -51,13 +51,15 @@ export async function onBlock(name: string) {
 }
 
 export async function onUnblock(name: string) {
+  const user= await getCurrentUser();
+
   const result = await unBlockUser(name);
 
-  revalidatePath("/");
+  revalidatePath(`/creator/${user?.username}/community`);
 
-  if (result) {
-    revalidatePath(`/${result.blocked.username}`);
-  }
+  // if (result) {
+  //   revalidatePath(`/${result.blocked.username}`);
+  // }
 
   return result;
 }
