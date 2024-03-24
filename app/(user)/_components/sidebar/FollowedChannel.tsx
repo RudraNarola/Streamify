@@ -1,13 +1,13 @@
 "use client";
 import { Suspense } from "react";
 
-import { User } from "@prisma/client";
+import {Follow, User } from "@prisma/client";
 import UserCard, { UserItemSkeleton } from "./UserCard";
 import { useCollapse } from "@/store/useCollapse";
 import { useEffect } from "react";
 import { getFollowedUser } from "@/lib/services/follow.services";
 import { usePathname } from "next/navigation";
-
+import { LiveBadge } from "@/components/live-badge";
 // TODO: User may not be following anyone, so we need to handle that case
 interface Props {
   data: User[] | null;
@@ -36,6 +36,12 @@ const FollowedChannel = ({ data }: Props) => {
               key={user.id}
               imageUrl={user.imageUrl}
               username={user.username}
+              
+              
+              
+
+          
+                         
             />
           );
         })}

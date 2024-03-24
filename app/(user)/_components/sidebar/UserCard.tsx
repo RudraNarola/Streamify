@@ -9,6 +9,9 @@ import { cva, type VariantProps } from "class-variance-authority";
 import Image from "next/image";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
+import { LiveBadge } from "@/components/live-badge";
+import { UserAvatar } from "@/components/user-avatar";
+
 
 const avatarSizes = cva("", {
   variants: {
@@ -23,12 +26,14 @@ const avatarSizes = cva("", {
 });
 
 interface Props {
-  imageUrl: string;
   username: string;
+  imageUrl: string;
   isLive?: boolean | false;
+ 
+  
 }
 
-const UserCard = ({ imageUrl, username, isLive }: Props) => {
+const UserCard = ({ username, imageUrl,  isLive  }: Props) => {
   const { collapse } = useCollapse();
   const pathname = usePathname();
   const href = `/${username}`;
@@ -45,30 +50,24 @@ const UserCard = ({ imageUrl, username, isLive }: Props) => {
       variant={"ghost"}
     >
       <Link href={`/${username}`}>
-        <div
-          className={cn(
-            "flex items-center gap-x-2 w-full",
-            collapse && "justify-center"
+      <div className={cn(
+          "flex items-center w-full gap-x-4 ",
+          collapse && "justify-center",
+        )}>
+          <UserAvatar
+            imageUrl={imageUrl} 
+            username={username}
+            isLive={isLive}
+          />
+          {!collapse && (
+            <p className="truncate">
+              {username}
+            </p>
           )}
-        >
-          <Avatar
-            className={
-              (cn("ring-2 ring-red-400 border-background object-contain"),
-              true ? "ring-green-500" : "ring-gray-600")
-            }
-          >
-            <AvatarImage
-              src={imageUrl}
-              className="object-contain"
-              alt="user img"
-            />
-            <AvatarFallback>...</AvatarFallback>
-          </Avatar>
-          {!collapse && <p className="text-ellipsis">{username}</p>}
+          {!collapse && isLive && (
+            <LiveBadge className="ml-auto" />
+          )}
         </div>
-        {isLive ? (
-          <div className="bg-green-500 px-2 py-1 text-sm rounded-sm ">Live</div>
-        ) : null}
       </Link>
     </Button>
   );

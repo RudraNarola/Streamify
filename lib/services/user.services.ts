@@ -39,9 +39,9 @@ export const getUserByUsername = async (userName: string) => {
     },
   });
 
-  if (!user) {
-    throw new Error("User not found");
-  }
+  // if (!user) {
+  //   throw new Error("User not found");
+  // }
 
   return user;
 };
