@@ -4,8 +4,8 @@ datasource db {
 }
 
 generator client {
-  provider = "prisma-client-js"
-  previewFeatures = ["fullTextSearch","fullTextIndex"]
+  provider        = "prisma-client-js"
+  previewFeatures = ["fullTextSearch", "fullTextIndex"]
 }
 
 model User {
@@ -47,10 +47,10 @@ model Stream {
 
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
+  // @@fulltext([name])
 
   @@index([userId])
   @@index([ingressId])
-  @@fulltext([name])
 }
 
 model Follow {

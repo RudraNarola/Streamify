@@ -8,7 +8,7 @@ interface CreatorPageProps {
   };
 }
 
-export const Dashboard = async ({ params }: CreatorPageProps) => {
+export default async function Page({ params }: CreatorPageProps) {
   console.log("id", params.id);
 
   const externalUser = await currentUser();
@@ -30,6 +30,4 @@ export const Dashboard = async ({ params }: CreatorPageProps) => {
       </div>
     </>
   );
-};
-
-export default Dashboard;
+}
