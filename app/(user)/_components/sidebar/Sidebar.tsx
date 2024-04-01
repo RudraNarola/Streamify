@@ -19,9 +19,8 @@ const Sidebar = async () => {
       <Wrapper>
         <Header />
         <div className="space-y-4 pt-4 lg:pt-0">
-
-        <FollowedChannel data={followedData} />
-        <RecommendChannel data={recommendedData} />
+          <FollowedChannel data={followedData} />
+          <RecommendChannel data={recommendedData} />
         </div>
       </Wrapper>
     </>

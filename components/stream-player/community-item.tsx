@@ -23,7 +23,7 @@ export const CommunityItem = ({
 }: CommunityItemProps) => {
   const color = stringToColor(participantName || "");
   const isSelf = participantName === viewerName;
-  const isHost = participantName === hostName;
+  const isHost = viewerName === hostName;
 
   const [isPending, startTransition] = useTransition();
 
@@ -47,16 +47,16 @@ export const CommunityItem = ({
       )}
     >
       <p style={{ color: color }}>{participantName}</p>
-      {/* {isHost && !isSelf && ( */}
-      <Button
-        disabled={isPending || isSelf}
-        onClick={handleBlock}
-        className="h-auto w-auto p-1 opacity-0 group-hover:opacity-100 transition"
-        variant={"ghost"}
-      >
-        <MinusCircle className="h-4 w-4 text-muted-foreground" />
-      </Button>
-      {/* )} */}
+      {isHost && !isSelf && (
+        <Button
+          disabled={isPending || isSelf}
+          onClick={handleBlock}
+          className="h-auto w-auto p-1 opacity-0 group-hover:opacity-100 transition"
+          variant={"ghost"}
+        >
+          <MinusCircle className="h-4 w-4 text-muted-foreground" />
+        </Button>
+      )}
     </div>
   );
 };

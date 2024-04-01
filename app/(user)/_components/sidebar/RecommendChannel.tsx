@@ -49,7 +49,7 @@ export default RecommendChannel;
 
 export const RecommendedSkeleton = () => {
   return (
-    <ul className="px-2">
+    <ul className="px-1">
       {[...Array(7)].map((_, i) => (
         <UserItemSkeleton key={i} />
       ))}

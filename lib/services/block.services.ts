@@ -1,5 +1,9 @@
 import { db } from "../database";
-import { getCurrentUser, getUserByUsername } from "./user.services";
+import {
+  getCurrentUser,
+  getUserById,
+  getUserByUsername,
+} from "./user.services";
 
 export async function isBlocked(name: string) {
   let user;
@@ -75,7 +79,7 @@ export async function isBlockedByUser(name: string) {
   return !!result;
 }
 
-export async function blockUser(name: string) {
+export async function blockUser(id: string) {
   let user;
   try {
     user = await getCurrentUser();
@@ -85,13 +89,13 @@ export async function blockUser(name: string) {
 
   let otherUser;
   try {
-    otherUser = await getUserByUsername(name);
+    otherUser = await getUserById(id);
   } catch (error) {
     console.error("User is not found", error);
   }
 
   if (!user || !otherUser) {
-    console.error("User or other user is not found");
+    console.error("User or other user is not found in blocking");
     return null;
   }
 
@@ -181,18 +185,15 @@ export async function unBlockUser(name: string) {
   return result;
 }
 
-
-
 export const getBlockedUsers = async () => {
   const user = await getCurrentUser();
   const blockedUsers = await db.block.findMany({
-    where:{
+    where: {
       blockerId: user.id,
     },
-    include:{
-      blocked:true,
-    }
+    include: {
+      blocked: true,
+    },
   });
   return blockedUsers;
 };
-
