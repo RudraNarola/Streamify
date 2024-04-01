@@ -133,7 +133,7 @@ export async function blockUser(id: string) {
   return result;
 }
 
-export async function unBlockUser(name: string) {
+export async function unBlockUser(id: string) {
   let user;
   try {
     user = await getCurrentUser();
@@ -143,7 +143,7 @@ export async function unBlockUser(name: string) {
 
   let otherUser;
   try {
-    otherUser = await getUserByUsername(name);
+    otherUser = await getUserById(id);
   } catch (error) {
     console.error("User is not found", error);
   }
