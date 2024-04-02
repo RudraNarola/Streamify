@@ -5,6 +5,7 @@ import { db } from "../database";
 export const getCurrentUser = async () => {
   const clerkUser = await currentUser();
 
+
   if (!clerkUser || !clerkUser.username) {
     throw new Error("User not authenticated (Clerk)");
   }
@@ -108,42 +109,114 @@ export const getFollowedChannel = async () => {
 };
 
 export const getRecommendedChannel = async () => {
-  const user = await getCurrentUser();
-  const result = await db.user.findMany({
-    where: {
-      AND: [
-        {
-          NOT: {
-            id: user.id,
+  // const user = await getCurrentUser();
+
+  let userId;
+
+  try {
+    const self = await getCurrentUser();
+    userId = self.id;
+  } catch {
+    userId = null;
+  }
+
+  let users = [];
+
+  if (userId) {
+    users = await db.user.findMany({
+      where: {
+        AND: [
+          {
+            NOT: {
+              id: userId,
+            },
           },
-        },
-        {
-          NOT: {
-            followedBy: {
-              some: {
-                followerId: user.id,
+          {
+            NOT: {
+              followedBy: {
+                some: {
+                  followerId: userId,
+                },
               },
             },
           },
-        },
-        {
-          NOT: {
-            blocking: {
-              some: {
-                blockedId: user.id,
+          {
+            NOT: {
+              blocking: {
+                some: {
+                  blockedId: userId,
+                },
               },
             },
           },
-        },
-      ],
-    },
-    include: {
-      stream: {
-        select: {
-          isLive: true,
+        ],
+      },
+      include: {
+        stream: {
+          select: {
+            isLive: true,
+          },
         },
       },
-    },
-  });
-  return result;
+      orderBy: [
+        {
+          stream: {
+            isLive: "desc",
+          }
+        },
+        {
+          createdAt: "desc"
+        },
+      ]
+    })
+  } else {
+    users = await db.user.findMany({
+      include: {
+        stream: {
+          select: {
+            isLive: true,
+          },
+        },
+      },
+      orderBy: [
+        {
+          stream: {
+            isLive: "desc",
+          }
+        },
+        {
+          createdAt: "desc"
+        },
+      ]
+    });
+  }
+
+  return users;
+
+
+ 
+
+
+
+  
+
+
+  
+
+  
+  
+
+
+
+
+ 
+
+
+
+  
+
+
+
+
+  
 };

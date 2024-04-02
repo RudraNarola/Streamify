@@ -29,6 +29,12 @@ export const Search = () => {
     setValue("");
   };
 
+  const handleKeyDown = (e: React.KeyboardEvent<HTMLInputElement>) => {
+    if (e.key === "Enter") {
+      onSubmit(e);
+    }
+  };
+
   return (
     <form
       onSubmit={onSubmit}
@@ -41,6 +47,7 @@ export const Search = () => {
       <Input
         value={value}
         onChange={(e) => setValue(e.target.value)}
+        onKeyDown={handleKeyDown}
         placeholder="Search"
         className="focus-visible:ring-1 focus:ring-blue-400 focus:outline-none border border-gray-600 rounded-md py-2 px-8 w-full"
       />
