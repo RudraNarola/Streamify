@@ -16,7 +16,6 @@ interface Props {
 const FollowedChannel = ({ data }: Props) => {
   const { collapse } = useCollapse();
 
-  const pathname = usePathname();
   return (
     <div className="h-auto">
       {!collapse && (
@@ -44,7 +43,7 @@ export default FollowedChannel;
 export const FollowedChannelSkeleton = () => {
   return (
     <ul className="px-1">
-      {[...Array(5)].map((_, i) => (
+      {[...Array(4)].map((_, i) => (
         <UserItemSkeleton key={i} />
       ))}
     </ul>

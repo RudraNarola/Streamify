@@ -11,7 +11,7 @@ export default function UserLayout({
     <>
       <Navbar />
 
-      <main className="h-full flex flex-row mt-20">
+      <main className="h-full flex flex-rowmt-16 lg:mt-20">
         {/* <Suspense fallback={<CreatorSidebarSkeleton />}> */}
         <Sidebar />
         {/* </Suspense> */}
