@@ -12,7 +12,7 @@ export const Search = () => {
   const router = useRouter();
   const [value, setValue] = useState("");
 
-  const onSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+const onSubmit = (e: React.KeyboardEvent<HTMLInputElement> | React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
 
     if (!value) return;
