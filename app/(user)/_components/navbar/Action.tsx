@@ -9,7 +9,10 @@ const Action = async () => {
   const user = await currentUser();
 
   return (
-    <div className="flex gap-8 mr-4 items-center">
+
+    
+
+    <div  className={user ? "flex gap-8 mr-4 items-center" : "flex  mr-1 items-center"}>
       {user && (
         <Link href={`creator/${user.username}`}>
           <div className="flex items-center gap-2 cursor-pointer">
