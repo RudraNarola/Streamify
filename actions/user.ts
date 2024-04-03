@@ -21,8 +21,8 @@ export const updateUser = async (values: Partial<User>) => {
     },
   });
 
-  revalidatePath(`/creator/${self.username}`);
   revalidatePath(`/${self.username}`);
+  revalidatePath(`/creator/${self.username}`);
 
   return user;
 };
