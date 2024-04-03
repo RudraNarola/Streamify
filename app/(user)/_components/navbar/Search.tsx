@@ -12,15 +12,20 @@ export const Search = () => {
   const router = useRouter();
   const [value, setValue] = useState("");
 
-  const onSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+  const onSubmit = (
+    e: React.KeyboardEvent<HTMLInputElement> | React.FormEvent<HTMLFormElement>
+  ) => {
     e.preventDefault();
 
     if (!value) return;
 
-    const url = qs.stringifyUrl({
-      url: "/search",
-      query: { term: value },
-    }, { skipEmptyString: true });
+    const url = qs.stringifyUrl(
+      {
+        url: "/search",
+        query: { term: value },
+      },
+      { skipEmptyString: true }
+    );
 
     router.push(url);
   };
@@ -34,29 +39,23 @@ export const Search = () => {
       onSubmit={onSubmit}
       className="relative w-full lg:w-[500px] flex items-center gap-1 lg:px-4"
     >
-
       <div className=" relative w-full">
-
-      
-      <Input
-        value={value}
-        onChange={(e) => setValue(e.target.value)}
-        placeholder="Search"
-        className="focus-visible:ring-1 focus:ring-blue-400 focus:outline-none border border-gray-600 rounded-md py-2 px-8 w-full"
-      />
- {value && (
+        <Input
+          value={value}
+          onChange={(e) => setValue(e.target.value)}
+          placeholder="Search"
+          className="focus-visible:ring-1 focus:ring-blue-400 focus:outline-none border border-gray-600 rounded-md py-2 px-8 w-full"
+        />
+        {value && (
           <button
             onClick={onClear}
             className="absolute inset-y-0 right-1 flex items-center pr-2 py-2  text-white-100 hover:text-gray-300  text-md font-bold "
           >
             X
           </button>
-
         )}
-
-
-</div>
-       <Button type="submit" size="sm" variant="ghost">
+      </div>
+      <Button type="submit" size="sm" variant="ghost">
         <SearchIcon className="h-5 w-5 text-muted-foreground" />
       </Button>
     </form>
