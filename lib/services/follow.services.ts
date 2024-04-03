@@ -147,33 +147,47 @@ export async function unFollowUser(id: string) {
 }
 
 export async function getFollowedUser() {
-  let user;
   try {
-    user = await getCurrentUser();
-  } catch (error) {
-    console.error("Current user is not found", error);
-  }
+    const self = await getCurrentUser();
 
-  if (!user) {
-    console.error("User is not found");
-    return null;
-  }
-
-  const result = await db.follow.findMany({
-    where: {
-      followerId: user.id,
-      following: {
-        blocking: {
-          none: {
-            blockedId: user.id,
+    const followedUsers = db.follow.findMany({
+      where: {
+        followerId: self.id,
+        following: {
+          blocking: {
+            none: {
+              blockedId: self.id,
+            },
           },
         },
       },
-    },
-    include: {
-      following: true,
-    },
-  });
+      include: {
+        following: {
+          include: {
+            stream: {
+              select: {
+                isLive: true,
+              },
+            },
+          },
+        },
+      },
+      orderBy: [
+        {
+          following: {
+            stream: {
+              isLive: "desc",
+            },
+          },
+        },
+        {
+          createdAt: "desc",
+        },
+      ],
+    });
 
-  return result.map((item) => item.following);
+    return followedUsers;
+  } catch {
+    return [];
+  }
 }

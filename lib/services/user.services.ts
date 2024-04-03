@@ -5,7 +5,6 @@ import { db } from "../database";
 export const getCurrentUser = async () => {
   const clerkUser = await currentUser();
 
-
   if (!clerkUser || !clerkUser.username) {
     throw new Error("User not authenticated (Clerk)");
   }
@@ -37,11 +36,9 @@ export const getUserByUsername = async (userName: string) => {
       bio: true,
       imageUrl: true,
 
-
       stream: {
         select: {
           id: true,
-
 
           isLive: true,
           isChatDelayed: true,
@@ -49,8 +46,7 @@ export const getUserByUsername = async (userName: string) => {
           isChatFollowersOnly: true,
           thumbnailUrl: true,
           name: true,
-
-        }
+        },
       },
 
       _count: {
@@ -162,13 +158,13 @@ export const getRecommendedChannel = async () => {
         {
           stream: {
             isLive: "desc",
-          }
+          },
         },
         {
-          createdAt: "desc"
+          createdAt: "desc",
         },
-      ]
-    })
+      ],
+    });
   } else {
     users = await db.user.findMany({
       include: {
@@ -182,41 +178,14 @@ export const getRecommendedChannel = async () => {
         {
           stream: {
             isLive: "desc",
-          }
+          },
         },
         {
-          createdAt: "desc"
+          createdAt: "desc",
         },
-      ]
+      ],
     });
   }
 
   return users;
-
-
- 
-
-
-
-  
-
-
-  
-
-  
-  
-
-
-
-
- 
-
-
-
-  
-
-
-
-
-  
 };

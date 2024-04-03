@@ -1,16 +1,15 @@
 "use client";
-import { Suspense } from "react";
 
 import { Follow, User } from "@prisma/client";
 import UserCard, { UserItemSkeleton } from "./UserCard";
 import { useCollapse } from "@/store/useCollapse";
-import { useEffect } from "react";
-import { getFollowedUser } from "@/lib/services/follow.services";
-import { usePathname } from "next/navigation";
-import { LiveBadge } from "@/components/live-badge";
 
 interface Props {
-  data: User[] | null;
+  data: (Follow & {
+    following: User & {
+      stream: { isLive: boolean } | null;
+    };
+  })[];
 }
 
 const FollowedChannel = ({ data }: Props) => {
@@ -24,12 +23,13 @@ const FollowedChannel = ({ data }: Props) => {
         </div>
       )}
       <div className="w-full flex gap-y-1 flex-col">
-        {data?.map((user) => {
+        {data?.map((follow) => {
           return (
             <UserCard
-              key={user.id}
-              imageUrl={user.imageUrl}
-              username={user.username}
+              key={follow.following.id}
+              username={follow.following.username}
+              imageUrl={follow.following.imageUrl}
+              isLive={follow.following.stream?.isLive}
             />
           );
         })}
